@@ -1,0 +1,278 @@
+/* Общий контейнер для страницы */
+.admin-users-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-family: Arial, sans-serif;
+}
+
+/* Заголовок */
+.admin-users-container h1 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Кнопка "Создать пользователя" */
+.admin-actions {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.admin-actions .btn-create {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease-in-out;
+}
+.admin-actions .btn-create:hover {
+  background-color: #218838;
+}
+
+/* Таблица пользователей */
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.admin-users-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+.admin-users-table td {
+  background-color: #fff;
+}
+
+/* Кнопки "Редактировать" / "Удалить" в ячейке */
+.user-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.user-actions button {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+/* "Редактировать" */
+.user-actions .edit-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+.user-actions .edit-btn:hover {
+  background-color: #0069d9;
+}
+
+/* "Удалить" */
+.user-actions .delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+.user-actions .delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Блок ошибки / загрузки */
+.error-message, .loading-message {
+  text-align: center;
+  color: #888;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* ========== Форма редактирования / создания ========== */
+.admin-user-edit-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-family: Arial, sans-serif;
+}
+
+.admin-user-edit-container h1 {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.admin-user-form-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+.admin-user-form-group label {
+  width: 120px;
+  font-weight: bold;
+  color: #555;
+  margin-right: 10px;
+}
+.admin-user-form-group input[type="text"],
+.admin-user-form-group input[type="email"],
+.admin-user-form-group input[type="password"] {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Чекбоксы (is_staff, is_superuser) */
+.admin-user-form-group input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+/* Кнопки "Создать/Сохранить" и "Отмена" */
+.admin-user-form-actions {
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.admin-user-form-actions button {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Кнопка Сохранить / Создать */
+.save-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+.save-btn:hover {
+  background-color: #218838;
+}
+
+/* Кнопка отмена */
+.cancel-btn {
+  background-color: #6c757d;
+  color: #fff;
+}
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Адаптация под мобильные телефоны (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Общий контейнер */
+  .admin-users-container {
+    margin: 20px 10px;
+    padding: 15px;
+    max-width: 100%; /* Убираем ограничение ширины */
+  }
+
+  /* Заголовок */
+  .admin-users-container h1 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  /* Кнопка "Создать пользователя" */
+  .admin-actions {
+    text-align: center; /* Центрируем кнопку */
+  }
+
+  .admin-actions .btn-create {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  /* Таблица пользователей */
+  .admin-users-table {
+    display: block; /* Делаем таблицу блочной для прокрутки */
+    overflow-x: auto; /* Горизонтальная прокрутка */
+    white-space: nowrap; /* Предотвращаем перенос текста */
+  }
+
+  .admin-users-table th,
+  .admin-users-table td {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+
+  .user-actions {
+    flex-direction: column; /* Кнопки в столбец */
+    gap: 5px;
+  }
+
+  .user-actions button {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Форма редактирования / создания */
+  .admin-user-edit-container {
+    margin: 20px 10px;
+    padding: 15px;
+    max-width: 100%; /* Убираем ограничение ширины */
+  }
+
+  .admin-user-edit-container h1 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .admin-user-form-group {
+    flex-direction: column; /* Поля в столбец */
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .admin-user-form-group label {
+    width: 100%; /* Метка на всю ширину */
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .admin-user-form-group input[type="text"],
+  .admin-user-form-group input[type="email"],
+  .admin-user-form-group input[type="password"] {
+    width: 100%; /* Поля ввода на всю ширину */
+    padding: 5px 8px;
+    font-size: 0.9rem;
+  }
+
+  .admin-user-form-group input[type="checkbox"] {
+    margin-left: 0;
+  }
+
+  .admin-user-form-actions {
+    flex-direction: column; /* Кнопки в столбец */
+    gap: 8px;
+  }
+
+  .admin-user-form-actions button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    width: 100%; /* Кнопки на всю ширину */
+  }
+
+  /* Блок ошибки / загрузки */
+  .error-message, .loading-message {
+    font-size: 0.9rem;
+  }
+}

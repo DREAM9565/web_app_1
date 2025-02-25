@@ -1,0 +1,40 @@
+/* global.css */
+
+/* Светлая тема (по умолчанию) */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --secondary-color: #6c757d;
+    --secondary-hover: #5a6268;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Тёмная тема (используется класс .dark на корневом элементе) */
+  .dark {
+    --bg-color: #1f2937;
+    --text-color: #d1d5db;
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --secondary-color: #9ca3af;
+    --secondary-hover: #6b7280;
+    --card-bg: #374151;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Базовые стили для body */
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  

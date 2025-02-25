@@ -1,0 +1,422 @@
+/* =========================
+   Общие стили для списка карточек и карточек товара
+   Объединённые из productcard.css и productlist.css
+   ========================= */
+
+/* Основной контент */
+.main-content {
+    padding: 20px;
+    margin-top: 50px; /* чтобы карточки начинались ниже, чем фиксированная панель */
+  }
+  
+  /* Загрузка (Loading) */
+  .loading {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  /* =========================
+     Сетка карточек товаров (по умолчанию – 3 колонки на десктопе)
+     ========================= */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3 колонки на десктопе */
+    gap: 20px;
+    padding: 20px;
+  
+    /* Чтобы центрировать и ограничить ширину */
+    max-width: 1280px;
+    margin: 60px auto 0 auto; /* небольшой отступ сверху */
+  }
+
+  /* Карточка товара */
+  .product-card {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    box-sizing: border-box;
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    position: relative; /* Позволяет позиционировать дочерние элементы относительно карточки */
+}
+
+.add-button {
+  position: absolute; /* Абсолютное позиционирование */
+  top: 10px; /* Отступ от верхней границы */
+  right: 10px; /* Отступ от правой границы */
+  background-color: green; /* Зеленый цвет фона */
+  color: white; /* Белый цвет текста */
+  border: none; /* Без рамки */
+  border-radius: 8px; /* Закругленные углы */
+  width: 40px; /* Ширина кнопки */
+  height: 40px; /* Высота кнопки */
+  font-size: 24px; /* Размер шрифта для плюса */
+  cursor: pointer; /* Курсор при наведении */
+  display: flex; /* Используем flexbox для центрирования содержимого */
+  align-items: center; /* Центрируем по вертикали */
+  justify-content: center; /* Центрируем по горизонтали */
+  font-weight: bold; /* Жирный шрифт для плюса */
+  text-decoration: none; /* Убираем подчеркивание у ссылки */
+}
+
+.add-button:hover {
+  background-color: darkgreen; /* Более темный зеленый цвет при наведении */
+}
+  
+  /* Эффект наведения */
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Контейнер для изображения */
+  .product-image-container {
+    width: 100%;
+    height: 180px; /* увеличенная высота на десктопе */
+    background: #fff;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .product-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  /* Детали карточки */
+  .product-details {
+    padding: 10px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #333;
+  }
+
+  .price-highlight strong:last-child {
+    font-weight: bold; /* Убедитесь, что цифра жирная */
+    color: #e44d26; /* Устанавливаем оранжевый цвет */
+  }
+  
+  /* Перенос длинных слов/строк */
+  .product-details p {
+    margin: 4px 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+    display: -webkit-box; /* Fallback для старых браузеров */
+    -webkit-box-orient: vertical; /* Fallback для старых браузеров */
+    -webkit-line-clamp: 2; /* Fallback для старых WebKit-браузеров */
+    line-clamp: 2; /* Стандарт для новых браузеров */
+    overflow: hidden;
+  }
+  
+  .product-details strong {
+    color: #000;
+  }
+  
+  /* Убираем подчеркивание для ссылок внутри карточки */
+  .product-card a {
+    text-decoration: none;
+    /* color: inherit; */
+  }
+  
+  /* Стили для родительского товара */
+  .parent-product-section {
+    margin-top: 10px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .parent-product-section h3 {
+    margin: 0 0 5px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .parent-product-section p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* Дополнительный блок (если нужно) */
+  .parent-product-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .parent-product-image {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .parent-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .parent-products-grid {
+    flex-grow: 1;
+  }
+  
+  .parent-products-grid p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  .parent-products-grid strong {
+    color: #000;
+  }
+  
+  
+  /* =========================
+     Адаптивность для планшетов (max-width: 768px)
+     ========================= */
+  @media (max-width: 768px) {
+  
+    /* 2 колонки, чуть меньше высота */
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 15px;
+      margin-top: 40px; /* немного уменьшили верхний отступ */
+    }
+  
+    .product-image-container {
+      height: 160px;
+    }
+  
+    .product-details {
+      font-size: 0.95rem;
+    }
+  }
+  
+  
+  /* =========================
+     Адаптивность для телефонов (max-width: 480px)
+     ========================= */
+  @media (max-width: 480px) {
+    
+    /* По-прежнему 2 колонки, но ещё меньше отступы */
+    .product-grid {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 10px;
+      padding: 10px;
+      margin-top: 30px;
+      padding-top: 6px;
+    }
+  
+    .product-image-container {
+      height: 140px; 
+    }
+  
+    .product-details {
+      font-size: 0.9rem;
+    }
+  }
+
+
+/* Стили для контейнера карточек связанных товаров */
+.related-products-grid {
+  display: grid;
+  gap: 15px;
+  padding: 15px;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 767px) {
+  .related-products-grid {
+    grid-template-columns: 1fr; /* 1 колонка на мобильных */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .related-products-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки на планшетах */
+  }
+}
+
+@media (min-width: 1024px) {
+  .related-products-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки на десктопе */
+  }
+}
+
+/* Стили для отдельной карточки связанного товара */
+.related-product-card {
+  width: 100%;
+  height: auto; /* Автоматическая высота */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.related-product-card:hover {
+  transform: translateY(-3px); /* Небольшой подъем при наведении */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Стили для контейнера изображения */
+.related-product-image-container {
+  width: 100%;
+  height: 200px; /* Фиксированная высота для изображений */
+  overflow: hidden; /* Скрываем часть изображения, выходящую за пределы контейнера */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.related-product-image-container img {
+  width: auto; /* Автоматическая ширина */
+  height: 100%; /* Изображение занимает всю высоту контейнера */
+  object-fit: contain; /* Масштабирование с сохранением пропорций и вписыванием в контейнер */
+}
+
+
+/* Стили для деталей товара */
+.related-product-details {
+  padding: 10px;
+}
+
+.related-product-details p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #333;
+  white-space: normal;
+  overflow-wrap: break-word;
+  display: -webkit-box; /* Fallback для старых браузеров */
+  -webkit-box-orient: vertical; /* Fallback для старых браузеров */
+  -webkit-line-clamp: 2; /* Fallback для старых WebKit-браузеров */
+  line-clamp: 2; /* Стандарт для новых браузеров */
+  overflow: hidden;  
+}
+
+/* Стили для секции товара МПР */
+.related-parent-product-section {
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+
+.related-parent-product-section h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.related-parent-product-section p {
+  margin: 3px 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Для планшетов в портретной ориентации (от 768px до 1024px) */
+@media (min-width: 480px) and (max-width: 1600px) and (orientation: portrait) {
+  /* Стили для основного грида карточек товаров (из @media (max-width: 768px)) */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки, как на телефонах */
+    gap: 15px;
+    padding: 15px;
+    margin-top: 40px; /* немного уменьшили верхний отступ */
+  }
+
+  .product-image-container {
+    height: 160px;
+  }
+
+  .product-details {
+    font-size: 0.95rem;
+  }
+
+  /* Стили для грида связанных товаров (из @media (max-width: 767px)) */
+  .related-products-grid {
+    grid-template-columns: 1fr; /* 1 колонка, как на телефонах */
+  }
+
+  /* Дополнительные стили из @media (max-width: 480px) для большей схожести с телефонами */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 1 колонка для максимальной схожести */
+    gap: 10px;
+    padding: 10px;
+    margin-top: 30px;
+    padding-top: 3px;
+  }
+
+  .product-image-container {
+    height: 140px; 
+  }
+
+  .product-details {
+    font-size: 0.9rem;
+  }
+}
+
+/* Для планшетов в ландшафтной ориентации (от 768px до 1024px) */
+@media (min-width: 480px) and (max-width: 1600px) and (orientation: landscape) {
+  /* Стили для основного грида карточек товаров (из @media (max-width: 768px)) */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки, как на телефонах */
+    gap: 15px;
+    padding: 15px;
+    margin-top: 40px; /* немного уменьшили верхний отступ */
+  }
+
+  .product-image-container {
+    height: 160px;
+  }
+
+  .product-details {
+    font-size: 0.95rem;
+  }
+
+
+  .product-details p {
+    margin: -3px 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+    display: -webkit-box; /* Fallback для старых браузеров */
+    -webkit-box-orient: vertical; /* Fallback для старых браузеров */
+    -webkit-line-clamp: 2; /* Fallback для старых WebKit-браузеров */
+    line-clamp: 2; /* Стандарт для новых браузеров */
+    overflow: hidden;
+  }
+  .product-details .product-name {
+    line-height: 1; /* Только для наименования */
+}
+
+  /* Дополнительные стили из @media (max-width: 480px) для большей схожести с телефонами */
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr); /* 1 колонка для максимальной схожести */
+    gap: 10px;
+    padding: 10px;
+    margin-top: 30px;
+    padding-top: 18px;
+  }
+
+  .product-image-container {
+    height: 190px; 
+  }
+
+  .product-details {
+    font-size: 0.9rem;
+  }
+}

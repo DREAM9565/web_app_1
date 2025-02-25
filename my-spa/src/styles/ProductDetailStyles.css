@@ -1,0 +1,222 @@
+/* ========== 1. Общие контейнеры для Market / MPR Detail ========== */
+
+/* Оба контейнера будут иметь одинаковый фоновый стиль, отступы и т.д. */
+.market-product-detail-container,
+.mpr-product-detail-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Основной блок с информацией */
+.market-product-info,
+.mpr-product-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Блок с картинкой */
+.market-product-image,
+.mpr-product-image {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+  margin-bottom: 20px; /* чтобы на мобильных всё не слипалось */
+}
+
+/* Сами картинки */
+.market-product-image img,
+.mpr-product-image img,
+.market-product-image .product-image,
+.mpr-product-image .product-image {
+  max-width: 80%;
+  border-radius: 8px;
+}
+
+/* Поле с описанием / полями */
+.unified-fields-grid, 
+.mpr-product-fields {
+  background-color: #fff;
+  /* flex: 2; */
+  min-width: 300px;
+  font-size: 1rem;
+  /* line-height: 1.5; */
+  color: #333;
+  /* padding: 10px; */
+  border-radius: 8px;
+}
+
+/* Поле .field */
+.field {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+/* Если нужно, можно объединить .unified-fields-grid и .mpr-product-fields в один класс
+   Например, .detail-fields, если хотите вообще одну стилистику */
+
+
+
+/* ========== 2. Общие стили для блоков / секций / карточек ========== */
+
+/* Блок типа .product-info-section */
+.product-info-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+.product-info-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.product-info-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+.product-info-section li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+.product-info-section strong {
+  color: #333;
+}
+
+/* Кнопки действия */
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+.action-buttons .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Можно оставить btn-primary / btn-secondary / btn-success, 
+   или переименовать/объединить */
+
+.action-buttons .btn-primary {
+  background: #28a745;
+  color: #fff;
+}
+.action-buttons .btn-secondary {
+  background: #6c757d;
+  color: #fff;
+}
+.action-buttons .btn-success {
+  background: #28a745;
+  color: #fff;
+}
+
+/* ========== 3. Родительский товар, связанные товары, секции ========== */
+
+/* Родительский блок */
+.parent-product-section {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f7f7f7;
+  border-radius: 8px;
+}
+
+/* Рыночные товары, мпр товары, etc. */
+.market-products-section,
+.market-products-section h2 {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  color: #444;
+}
+
+/* Сетка товаров */
+.market-products-grid,
+.parent-products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Каждая карточка */
+.market-product-card {
+  flex: 1 1 calc(33.33% - 20px);
+  max-width: 300px;
+}
+
+/* Общие стили для карточек (.card) */
+.card {
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 8px; 
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Картинка в .card */
+.card-img-top {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background: #f9f9f9;
+}
+
+/* Тело карточки */
+.card-body {
+  padding: 10px;
+  text-align: center;
+}
+
+.card-body h5 {
+  font-size: 1rem;
+  margin: 0;
+  color: #333;
+}
+
+.card-body p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+}
+
+
+/* ========== 4. Адаптивные доработки (при желании) ========== */
+/* Скажем, на max-width: 768px, уменьшаем max-width: 900px => 100% */
+@media (max-width: 768px) {
+  .market-product-detail-container,
+  .mpr-product-detail-container {
+    max-width: 100%;
+    margin-top: 30px;
+  }
+
+  /* Можно уменьшать .card-img-top, 
+     .market-products-grid => 2 колонки и т.д. */
+  .market-product-card {
+    flex: 1 1 calc(50% - 10px);
+    max-width: 200px;
+  }
+}
+
+/* На мобильных (max-width:480px) */
+@media (max-width: 480px) {
+  .market-product-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}

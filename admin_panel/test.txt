@@ -1,0 +1,10 @@
+DEBUG: perform_update() вызван
+DEBUG: request.FILES = <MultiValueDict: {'photo_file': [<InMemoryUploadedFile: 015-087.jpg (image/jpeg)>]}>
+DEBUG: Новое фото обнаружено: 015-087.jpg
+DEBUG: Старый файл удалён: market_product\80e32c44fd99595811e754db174be1c3_105-069.jpg
+DEBUG: Новый файл сохранён как: 80e32c44fd99595811e754db174be1c3_015-087.jpg
+DEBUG: perform_update() вызван
+DEBUG: request.FILES = <MultiValueDict: {'photo_file': [<InMemoryUploadedFile: 015-108.jpg (image/jpeg)>]}>
+DEBUG: Новое фото обнаружено: 015-108.jpg
+DEBUG: Старый файл удалён: market_product\80e32c44fd99595811e754db174be1c3_015-087.jpg
+DEBUG: Новый файл сохранён как: 80e32c44fd99595811e754db174be1c3_015-108.jpg

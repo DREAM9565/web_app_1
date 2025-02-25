@@ -1,0 +1,463 @@
+/* Основные стили для Header */
+.header {
+  position: relative; /* Добавлено для абсолютного позиционирования дочерних элементов */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff; /* Белый фон */
+  color: #333; /* Тёмный базовый цвет */
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1300;
+  transition: background-color 0.3s;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.header-center {
+  flex: 1;
+  display: flex; 
+  flex-direction: column; /* выстраиваем содержимое в колонку */
+  align-items: center;    /* центрируем элементы по горизонтали */
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+
+.header-center .breadcrumb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 60%;       /* Ограничиваем максимальную ширину, чтобы оставалось место для кнопок */
+  overflow: hidden;     /* Скрываем переполнение */
+  /* white-space: nowrap;  Не допускаем перенос строк */
+  text-overflow: ellipsis; /* Добавляем многоточие, если текст слишком длинный */
+  padding: 5px;      /* Добавляем отступы, чтобы текст не прилегал вплотную */
+  text-align: center;   /* Центрируем текст */
+  margin: 0 auto;       /* Центрируем блок в контейнере */
+  z-index: 1;
+  margin-bottom: 5px; /* добавляем отступ снизу */
+}
+
+
+/* Контейнер для поиска */
+.search-container {
+  position: relative;
+  top: 10px; /* смещаем вниз на 20px */
+}
+
+/* Стили для поля поиска */
+.search-input {
+  left: 8px;
+  width: 123px;
+  top: 0px;
+  padding: 3px 22px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+/* .search-input.expanded { */
+  /* width: 385px; */
+/* } */
+
+/* Кнопка очистки поля поиска (с надписью "Очистить") */
+.clear-search {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  color: #999;
+  cursor: pointer;
+}
+
+/* Скрыть стандартный ползунок */
+.unified-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Активная кнопка каталога */
+.catalog-button.active {
+  background: #fff;
+  color: #2c2c2c;
+}
+
+/* Базовый вид кнопки */
+.sidebar-toggle {
+  position: absolute; /* Абсолютное позиционирование внутри .header */
+  top: 20px;          /* Расстояние от верхней границы header */
+  left: 10px;         /* Или нужное вам значение по горизонтали */
+  appearance: none;
+  background: #000103;
+  /* margin-top уберите, так как мы теперь позиционируем абсолютно */
+  border: 0;
+  border-radius: 5px;
+  padding: 16px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 60px;
+  box-shadow: inset 0 1px 0 0 #fff;
+  text-shadow: 0 -1px 0 #196ebb;
+  top: 10px;
+  background: transparent;
+  padding: 6px;
+  z-index: 10;
+}
+
+
+.sidebar-toggle:hover {
+  background: #02cca0; /* Изменяем цвет фона при наведении */
+}
+
+.sidebar-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #cbd6ee;
+}
+
+.sidebar-toggle:active {
+  background-color: #02cca0;
+  transform: translateY(1px);
+}
+
+/* ============ Адаптивные правки для мобильных устройств (max-width: 480px) ============ */
+@media (max-width: 480px) {
+  /* Уменьшаем общий отступ и высоту header */
+  .header {
+    padding: 25px 10px;
+    flex-wrap: wrap; /* Разбиваем строку на несколько */
+  }
+  
+  /* Левый блок: уменьшаем размер кнопки меню */
+  .header-left {
+    flex: 1 0 30%;
+  }
+  
+  /* Центр (breadcrumb): уменьшаем шрифт и отступы */
+  .header-center {
+    flex: 1 0 40%;
+    font-size: 0.8rem;
+    padding: 5px;
+    margin: 0;
+  }
+  .header-center .breadcrumb {
+    font-size: 0.8rem;
+    padding: 25px 70px;
+    max-width: 100%;
+  }
+  
+  /* Правый блок (поиск): переносим на новую строку, выравниваем по правому краю */
+  .header-right {
+    flex: 1 0 100%;
+    order: 2;
+    justify-content: flex-end;
+    margin-top: 5px;
+  }
+  .search-container {
+    width: auto;
+    text-align: right;
+    position: relative;
+    top: -40px;
+  }
+  .search-input,
+  .search-input.expanded {
+    font-size: 0.9rem;
+  }
+  
+  /* Меняем стиль кнопки sidebar-toggle на hamburger (3 полоски) */
+  .sidebar-toggle {
+    top: 10px;
+    background: transparent;
+    padding: 6px;
+    z-index: 10;
+    /* font-size: 1.2rem; */
+    /* Добавляем псевдоэлемент для отображения hamburger-иконки */
+  }
+  .sidebar-toggle::before {
+    content: "\2630"; /* Unicode символ hamburger */
+    display: block;
+    font-size: 1.5rem;
+  }
+    
+  /* Добавляем отступ для основного контента, чтобы header не перекрывал его */
+  .product-list-container {
+    margin-top: 90px;
+  }
+}
+
+.sort-control {
+  display: inline-flex;
+  gap: 5px;
+  margin-top: 30px;
+}
+
+.sort-select {
+  padding: 2px 4px;
+  font-size: 0.8rem;  /* В 2 раза меньше по сравнению с основным, если основной ~1.6rem */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Адаптивные правки для сортировки на планшетах и мобильных */
+@media (max-width: 768px) {
+  .sort-control {
+    flex-direction: column; /* Выстраиваем выпадающие списки вертикально */
+    gap: 4px;
+    margin-top: 4px;
+    width: 100%;
+    align-items: center;
+  }
+  .sort-select {
+    width: 90%;
+    font-size: 0.7rem; /* Дополнительно уменьшаем шрифт */
+    padding: 2px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sort-control {
+    gap: 3px;
+    margin-top: -88px;
+    left: -164px;
+    position: relative;
+  }
+  .sort-select {
+    width: 66%;
+    font-size: 0.85rem;
+    padding: 2px 3px;
+    position: relative;
+    top: 27px;
+    z-index: 3;
+    left: 42px;
+  }
+}
+
+/* Для планшетов в портретной ориентации (от 768px до 1024px) */
+@media (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
+  /* Стили из @media (max-width: 768px) */
+  .search-input {
+    width: 140px;
+  }
+
+  .item-list {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  .sort-control {
+    flex-direction: column; /* Выстраиваем выпадающие списки вертикально */
+    gap: 4px;
+    margin-top: 4px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .sort-select {
+    width: 90%;
+    font-size: 0.7rem; /* Дополнительно уменьшаем шрифт */
+    padding: 2px 4px;
+  }
+
+  /* Стили из @media (max-width: 480px) */
+  .header {
+    padding: 8px 8px;
+    flex-wrap: wrap; /* Разбиваем строку на несколько */
+  }
+  
+  .header-left {
+    flex: 1 0 30%;
+  }
+  
+  .header-center {
+    flex: 1 0 40%;
+    font-size: 0.8rem;
+    padding: 5px;
+    margin: 0;
+  }
+
+  .header-center .breadcrumb {
+    font-size: 0.8rem;
+    padding: 30px 235px;
+    max-width: 100%;
+  }
+  
+  .header-right {
+    flex: 1 0 100%;
+    order: 2;
+    justify-content: flex-end;
+    margin-top: 5px;
+  }
+
+  .search-container {
+    width: auto;
+    text-align: right;
+    position: relative;
+    top: -50px;
+    left: -15px
+  }
+
+  .search-input,
+  .search-input.expanded {
+    font-size: 1.0rem;
+  }
+  
+  .sidebar-toggle {
+    top: 10px;
+    background: transparent;
+    padding: 6px;
+  }
+
+  .sidebar-toggle::before {
+    content: "\2630"; /* Unicode символ hamburger */
+    display: block;
+    font-size: 1.5rem;
+  }
+  
+  .theme-toggle {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .product-list-container {
+    margin-top: 90px;
+  }
+
+  .sort-control {
+    gap: 3px;
+    margin-top: 3px;
+  }
+
+  .sort-select {
+    width: 35%;
+    font-size: 1rem;
+    padding: 2px 3px;
+    position: relative;
+    top: -13px;
+    z-index: 3;
+    left: -55px;
+  }
+}
+
+/* Для планшетов в ландшафтной ориентации (от 768px до 1024px) */
+@media (min-width: 480px) and (max-width: 1600px) and (orientation: landscape) {
+  /* Стили из @media (max-width: 768px) */
+  .search-input {
+    width: 222px;
+  }
+
+  .item-list {
+    grid-template-columns: 1fr;
+  }
+
+  .sort-control {
+    flex-direction: column; /* Выстраиваем выпадающие списки вертикально */
+    gap: 4px;
+    margin-top: 4px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .sort-select {
+    width: 90%;
+    font-size: 0.7rem; /* Дополнительно уменьшаем шрифт */
+    padding: 2px 4px;
+  }
+
+  /* Стили из @media (max-width: 480px) */
+  .header {
+    padding: 5px 10px;
+    flex-wrap: wrap; /* Разбиваем строку на несколько */
+  }
+  
+  .header-left {
+    flex: 1 0 30%;
+  }
+  
+  .header-center {
+    flex: 1 0 40%;
+    font-size: 0.8rem;
+    padding: 5px;
+    margin: 0;
+  }
+
+  .header-center .breadcrumb {
+    font-size: 0.8rem;
+    padding: 30px 235px;
+    max-width: 100%;
+  }
+  
+  .header-right {
+    flex: 1 0 100%;
+    order: 2;
+    justify-content: flex-end;
+    margin-top: -100px;
+  }
+
+  .search-container {
+    width: auto;
+    text-align: right;
+    position: relative;
+    top: 1px;
+    left: -10px
+  }
+
+  .search-input,
+  .search-input.expanded {
+    font-size: 1.0rem;
+  }
+  
+  .sidebar-toggle {
+    top: 10px;
+    background: transparent;
+    padding: 6px;
+  }
+
+  .sidebar-toggle::before {
+    content: "\2630"; /* Unicode символ hamburger */
+    display: block;
+    font-size: 1.5rem;
+  }
+  
+  .theme-toggle {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .product-list-container {
+    margin-top: 90px;
+  }
+
+  .sort-control {
+    gap: 3px;
+    margin-top: 24px;
+  }
+
+  .sort-select {
+    width: 35%;
+    font-size: 1rem;
+    padding: 2px 3px;
+    position: relative;
+    top: -31px;
+    z-index: 3;
+    left: -55px;
+  }
+}
