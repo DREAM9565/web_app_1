@@ -23,15 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1ea#gz691%r*0i4y6_ff(*lutzi2s1^qfnz3w)@)*m*(v(rxvd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['buyer.mprtorg.ru', 'localhost', '127.0.0.1', '5.188.116.126']
-
-# Список разрешённых IP для вызова endpoint импорта дампа
-IMPORT_ALLOWED_IPS = [
-    '49.12.85.66',  # реальный IP, с которого будет приходить запрос
-    # добавьте другие IP при необходимости
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -52,7 +46,6 @@ INSTALLED_APPS = [
     # Наши приложения
     'products',
     'accounts',
-    'db_importer',
 ]
 
 MIDDLEWARE = [
@@ -60,8 +53,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # Добавляем наш кастомный middleware ПЕРЕД CsrfViewMiddleware
-    'admin_panel.middleware.CsrfExemptForImportMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -77,15 +68,12 @@ REST_FRAMEWORK = {
 }
 
 
-CORS_ORIGIN_ALLOW_ALL = False  # Отключаем для продакшена
-CORS_ALLOWED_ORIGINS = [
-    'https://buyer.mprtorg.ru',  # Только HTTPS в продакшене
-]
+# Разрешаем все CORS для разработки:
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://buyer.mprtorg.ru',  # Только HTTPS
-]
+# Если ваше React-приложение работает на http://localhost:3000, добавьте его в доверенные источники:
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000', 'http://localhost:8000/',]
 
 ROOT_URLCONF = 'admin_panel.urls'
 
@@ -93,7 +81,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # Если вы планируете отдавать production-сборку React через Django, укажите путь к сборке
-        'DIRS': [os.path.join(BASE_DIR, '../my-spa/build')],  # Путь к React build
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,18 +99,14 @@ WSGI_APPLICATION = 'admin_panel.wsgi.application'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    r'C:\Users\Analitik\Desktop\Directory\my-spa\build\static',
-]
+STATIC_URL = 'static/'
+STATICFILES_DIRS = []
 
-# HTTPS-настройки
-SECURE_SSL_REDIRECT = False  # Перенаправление на HTTPS
-SESSION_COOKIE_SECURE = True  # Куки только по HTTPS
-CSRF_COOKIE_SECURE = True  # CSRF только по HTTPS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Для прокси
 
+# # Говорим Django, что у нас есть дополнительная (помимо app_name/static) папка для статики:
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'build', 'static'),
+# ]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -130,10 +114,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Для прок
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',       # Имя вашей базы данных
-        'USER': 'postgres',       # Пользователь БД
-        'PASSWORD': '789654',  # Пароль
-        'HOST': 'localhost',
+        'NAME': '1c',       # Имя вашей базы данных
+        'USER': 'analitik15',       # Пользователь БД
+        'PASSWORD': 'QazWsx1234567y',  # Пароль
+        'HOST': '192.168.190.87',
         'PORT': '5432',
         'OPTIONS': {
          'options': '-c search_path=site_mpr,public'  # Добавьте схему site_mpr в поисковый путь ,public
@@ -153,7 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ru-ru'
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = 'Europe/Moscow'  # Или 'Asia/Qatar', в зависимости от того, что вам больше подходит
 USE_TZ = True
 USE_I18N = True
 
