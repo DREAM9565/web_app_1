@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/', include('products.api_urls')),
     path('api/accounts/', include('accounts.api_urls')),
     # Другие API маршруты, если они есть
+    path('api/db/', include('db_importer.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Если приложение собрано (например, в production), отдаем React build

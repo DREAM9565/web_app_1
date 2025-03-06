@@ -348,9 +348,9 @@
   }
 
   /* Стили для грида связанных товаров (из @media (max-width: 767px)) */
-  .related-products-grid {
-    grid-template-columns: 1fr; /* 1 колонка, как на телефонах */
-  }
+  /* .related-products-grid {
+    grid-template-columns: 1fr;
+  } */
 
   /* Дополнительные стили из @media (max-width: 480px) для большей схожести с телефонами */
   .product-grid {

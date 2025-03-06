@@ -1,22 +1,34 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, filters
-from .models import MPRProduct, MarketProduct, Category, Currency
+from .models import MPRProduct, MarketProduct, Category, Group, Vid, Currency
 from .serializers import MPRProductSerializer, MarketProductSerializer, CategorySerializer, MarketProductCreateSerializer, MarketProductDetailSerializer, MarketProductUpdateSerializer, CurrencySerializer
 from rest_framework.pagination import PageNumberPagination
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class ProductPagination(PageNumberPagination):
-    page_size = 12  # 12 карточек на страницу
+    page_size = 30  # 30 карточек на страницу
 
 class CategoryListAPIView(generics.ListAPIView):
     """
-    API для получения списка категорий.
+    API для получения списка категорий с отсортированными вложенными groups и vids.
     """
-    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     pagination_class = None  # Отключаем пагинацию для категорий
+
+    def get_queryset(self):
+        # Сортируем vids по vid_id
+        vid_queryset = Vid.objects.all().order_by('vid_id')
+        # Сортируем groups по group_id и подтягиваем отсортированные vids
+        group_queryset = Group.objects.prefetch_related(
+            Prefetch('vids', queryset=vid_queryset)
+        ).order_by('group_id')
+        # Сортируем категории по category_id и подтягиваем отсортированные groups
+        queryset = Category.objects.prefetch_related(
+            Prefetch('groups', queryset=group_queryset)
+        ).order_by('category_id')
+        return queryset
 
 
 class CurrencyListAPIView(generics.ListAPIView):

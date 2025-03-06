@@ -265,8 +265,8 @@ const UnifiedSidebar = ({
             <div className="header-title-block">
               <h4 className={`header-title ${mobileLevel > 0 ? 'active' : ''}`} onClick={handleHeaderClick}>
                 {mobileLevel === 0 && 'Категории'}
-                {mobileLevel === 1 && selectedCategory && `${selectedCategory.description} – ${selectedCategory.sku} SKU`}
-                {mobileLevel === 2 && selectedGroup && `${selectedGroup.description} – ${selectedGroup.sku} SKU`}
+                {mobileLevel === 1 && selectedCategory && `${selectedCategory.description} – ${selectedCategory.sku} SKU; ${selectedCategory.ost_cz} ост. цз`}
+                {mobileLevel === 2 && selectedGroup && `${selectedGroup.description} – ${selectedGroup.sku} SKU; ${selectedGroup.ost_cz} ост. цз`}
               </h4>
             </div>
           </div>
@@ -313,7 +313,9 @@ const UnifiedSidebar = ({
             <div className="item-list">
               {categories.map((category) => (
                 <div key={category.category_id} className="item" onClick={() => handleCategoryClick(category)}>
-                  {category.description} – {category.sku} SKU
+                  {category.description}<br />
+                  {category.sku} SKU<br />
+                  {category.ost_cz} ост. цз
                 </div>
               ))}
             </div>
@@ -324,7 +326,9 @@ const UnifiedSidebar = ({
               {selectedCategory.groups &&
                 selectedCategory.groups.map((group) => (
                   <div key={group.group_id} className="item" onClick={() => handleGroupClick(group)}>
-                    {group.description} – {group.sku} SKU
+                    {group.description}<br />
+                    {group.sku} SKU<br />
+                    {group.ost_cz} ост. цз
                   </div>
                 ))}
             </div>
@@ -335,7 +339,9 @@ const UnifiedSidebar = ({
               {selectedGroup.vids &&
                 selectedGroup.vids.map((vid) => (
                   <div key={vid.vid_id} className="item" onClick={() => handleVidClick(vid)}>
-                    {vid.description} – {vid.sku} SKU
+                    {vid.description}<br />
+                    {vid.sku} SKU<br />
+                    {vid.ost_cz} ост. цз
                   </div>
                 ))}
             </div>

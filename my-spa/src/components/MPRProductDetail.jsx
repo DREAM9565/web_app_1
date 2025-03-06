@@ -40,11 +40,9 @@ const MPRProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // *** НОВЫЙ КОД ***
   const [categoryDescription, setCategoryDescription] = useState('');
   const [groupDescription, setGroupDescription] = useState('');
   const [vidDescription, setVidDescription] = useState('');
-  // *** КОНЕЦ НОВОГО КОДА ***
 
   // Загрузка деталей MPR
   useEffect(() => {
@@ -61,25 +59,27 @@ const MPRProductDetail = () => {
     fetchProductDetail();
   }, [encode]);
 
-  // *** НОВЫЙ КОД ***
   // Функция для получения описаний родительских сущностей
   const fetchParentDescriptions = async (parentDetail) => {
     try {
-      const res = await axios.get('/api/categories');
+      const res = await axios.get('/api/categories/');
       const categories = res.data;
+
       const categoryData = categories.find(
         (item) => Number(item.category_id) === Number(parentDetail.category)
       );
-      const category_description = categoryData ? categoryData.description : parentDetail.category;
-      let group_description = parentDetail.group;
-      let vid_description = parentDetail.vid;
+      const category_description = categoryData ? categoryData.description : (parentDetail.category || '-');
+
+      let group_description = parentDetail.group || '-';
+      let vid_description = parentDetail.vid || '-';
+
       if (categoryData && categoryData.groups) {
         const groupData = categoryData.groups.find(
           (grp) => Number(grp.group_id) === Number(parentDetail.group)
         );
         if (groupData) {
           group_description = groupData.description;
-          if (groupData.vids) {
+          if (groupData.vids && parentDetail.vid) { // Проверяем vid только если он не null
             const vidData = groupData.vids.find(
               (vd) => Number(vd.vid_id) === Number(parentDetail.vid)
             );
@@ -89,25 +89,26 @@ const MPRProductDetail = () => {
           }
         }
       }
+
       return { category_description, group_description, vid_description };
     } catch (err) {
       console.error("Ошибка получения описаний родительских сущностей:", err);
       return {
-        category_description: parentDetail.category,
-        group_description: parentDetail.group,
-        vid_description: parentDetail.vid
+        category_description: parentDetail.category || '-',
+        group_description: parentDetail.group || '-',
+        vid_description: parentDetail.vid || '-',
       };
     }
   };
 
+  // Загрузка описаний
   useEffect(() => {
-    // Вызываем fetchParentDescriptions для получения описаний
     const loadDescriptions = async () => {
-      if (product && product.category && product.group && product.vid) {
+      if (product) { // Проверяем только наличие product
         const descriptions = await fetchParentDescriptions({
-          category: product.category,
-          group: product.group,
-          vid: product.vid,
+          category: product.category || '', // Если null, передаём пустую строку
+          group: product.group || '',       // Если null, передаём пустую строку
+          vid: product.vid || '',           // Если null, передаём пустую строку
         });
         setCategoryDescription(descriptions.category_description);
         setGroupDescription(descriptions.group_description);
@@ -118,8 +119,6 @@ const MPRProductDetail = () => {
       loadDescriptions();
     }
   }, [product]);
-  // *** КОНЕЦ НОВОГО КОДА ***
-
 
   if (loading) return <div className="loading-message">Загрузка...</div>;
   if (!product) return <div className="error-message">Товар не найден</div>;
@@ -138,7 +137,7 @@ const MPRProductDetail = () => {
       return (
         <div className="related-product-details">
           <p><strong>Наименование:</strong> {product.description}</p>
-          <p><strong>Дата создания:</strong> {formatDate(product.date_create)}</p>
+          <p><strong>Дата создания:</strong> {product.date_create}</p>
           <p className="price-highlight"><strong>Цена:</strong> <strong>{product.cz}</strong></p>
           <p><strong>Поставщик:</strong> {product.provider}</p>
           <p><strong>Количество в упаковке:</strong> {product.qty_per_package}</p>
@@ -246,11 +245,9 @@ const MPRProductDetail = () => {
           <p><strong>Наценка:</strong> {(product.markup * 100).toFixed(0)}%</p>
           <p><strong>Маржа:</strong> {(product.margin * 100).toFixed(0)}%</p>
           <p><strong>Продажи (за 6 мес.):</strong> {product.avg_qty_sales_6_months}</p>
-          {/* *** НОВЫЙ КОД *** */}
           <p><strong>Категория:</strong> {categoryDescription}</p>
           <p><strong>Группа:</strong> {groupDescription}</p>
           <p><strong>Вид:</strong> {vidDescription}</p>
-          {/* *** КОНЕЦ НОВОГО КОДА *** */}
         </div>
       </div>
       <div className="action-buttons">
@@ -273,7 +270,7 @@ const MPRProductDetail = () => {
               return (
                 <div key={product.id} className="related-product-card">
                   <Link to={detailLink}>
-                    <div className="related-product-image-container"> {/* Исправлено: Используем правильный класс */}
+                    <div className="related-product-image-container">
                       <DefaultImage src={imagePath} alt={product.description} />
                     </div>
                   </Link>

@@ -6,44 +6,61 @@ from django.core.files.base import ContentFile
 from rest_framework import serializers
 from .models import MPRProduct, MarketProduct, Category, Group, Vid, Currency
 from django.conf import settings
-from PIL import Image
+from PIL import Image, ImageOps
 from io import BytesIO
+
 
 class VidSerializer(serializers.ModelSerializer):
     sku = serializers.SerializerMethodField()
+    ost_cz = serializers.SerializerMethodField()
 
     class Meta:
         model = Vid
-        fields = ('vid_id', 'description', 'sku')
+        fields = ('vid_id', 'description', 'sku', 'ost_cz')
 
     def get_sku(self, obj):
-        # Если в модели Vid есть свойство sku, можно вернуть его.
-        # Либо, если его нет, вернуть значение по умолчанию.
         return getattr(obj, 'sku', 0)
+
+    def get_ost_cz(self, obj):
+        value = getattr(obj, 'ost_cz', 0)  # По умолчанию 0, если атрибута нет
+        value = value if value is not None else 0  # Если value None, заменяем на 0
+        return f"{int(value):,}".replace(',', ' ')  # Только целое число с пробелами
 
 
 class GroupSerializer(serializers.ModelSerializer):
     vids = VidSerializer(many=True, read_only=True)
     sku = serializers.SerializerMethodField()
+    ost_cz = serializers.SerializerMethodField()
 
     class Meta:
         model = Group
-        fields = ('group_id', 'description', 'sku', 'vids')
+        fields = ('group_id', 'description', 'sku', 'vids', 'ost_cz')
 
     def get_sku(self, obj):
         return getattr(obj, 'sku', 0)
+
+    def get_ost_cz(self, obj):
+        value = getattr(obj, 'ost_cz', 0)  # По умолчанию 0, если атрибута нет
+        value = value if value is not None else 0  # Если value None, заменяем на 0
+        return f"{int(value):,}".replace(',', ' ')  # Только целое число с пробелами
 
 
 class CategorySerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True, read_only=True)
     sku = serializers.SerializerMethodField()
+    ost_cz = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ('category_id', 'description', 'sku', 'groups')
+        fields = ('category_id', 'description', 'sku', 'groups', 'ost_cz')
 
     def get_sku(self, obj):
         return getattr(obj, 'sku', 0)
+
+    def get_ost_cz(self, obj):
+        value = getattr(obj, 'ost_cz', 0)  # По умолчанию 0, если атрибута нет
+        value = value if value is not None else 0  # Если value None, заменяем на 0
+        return f"{int(value):,}".replace(',', ' ')  # Только целое число с пробелами
 
 
 class CurrencySerializer(serializers.ModelSerializer):
@@ -264,6 +281,8 @@ class MarketProductUpdateSerializer(serializers.ModelSerializer):
             
             # Открываем новое изображение через Pillow и сжимаем
             image = Image.open(new_photo)
+            # Корректируем ориентацию изображения на основе EXIF-данных
+            image = ImageOps.exif_transpose(image)
             image = image.convert('RGB')
             buffer = BytesIO()
             image.save(buffer, format='JPEG', optimize=True, quality=70)

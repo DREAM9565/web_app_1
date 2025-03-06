@@ -7,6 +7,7 @@ class Category(models.Model):
     description = models.TextField(null=True)
     _to = models.IntegerField(null=True)
     sku = models.IntegerField(null=True)
+    ost_cz = models.IntegerField(null=True)
     class Meta:
         db_table = 'category'
         managed = False
@@ -30,6 +31,7 @@ class Group(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, related_name='groups')
     _to = models.IntegerField(null=True)
     sku = models.IntegerField(null=True)
+    ost_cz = models.IntegerField(null=True)
     class Meta:
         db_table = 'group'
         managed = False
@@ -43,6 +45,7 @@ class Vid(models.Model):
     group = models.ForeignKey('Group', on_delete=models.CASCADE, null=True, related_name='vids')
     _to = models.IntegerField(null=True)
     sku = models.IntegerField(null=True)
+    ost_cz = models.IntegerField(null=True)
     class Meta:
         db_table = 'vid'
         managed = False

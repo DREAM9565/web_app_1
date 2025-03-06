@@ -44,21 +44,24 @@ const MarketProductDetail = () => {
   // Подгрузка дополнительных описаний
   const fetchParentDescriptions = async (parentDetail) => {
     try {
-      const res = await axios.get('/api/categories');
+      const res = await axios.get('/api/categories/');
       const categories = res.data;
+
       const categoryData = categories.find(
         (item) => Number(item.category_id) === Number(parentDetail.category)
       );
-      const category_description = categoryData ? categoryData.description : parentDetail.category;
-      let group_description = parentDetail.group;
-      let vid_description = parentDetail.vid;
+      const category_description = categoryData ? categoryData.description : (parentDetail.category || '-');
+
+      let group_description = parentDetail.group || '-';
+      let vid_description = parentDetail.vid || '-';
+
       if (categoryData && categoryData.groups) {
         const groupData = categoryData.groups.find(
           (grp) => Number(grp.group_id) === Number(parentDetail.group)
         );
         if (groupData) {
           group_description = groupData.description;
-          if (groupData.vids) {
+          if (groupData.vids && parentDetail.vid) { // Проверяем vid только если он не null
             const vidData = groupData.vids.find(
               (vd) => Number(vd.vid_id) === Number(parentDetail.vid)
             );
@@ -68,13 +71,14 @@ const MarketProductDetail = () => {
           }
         }
       }
+
       return { category_description, group_description, vid_description };
     } catch (err) {
       console.error("Ошибка получения описаний родительских сущностей:", err);
       return {
-        category_description: parentDetail.category,
-        group_description: parentDetail.group,
-        vid_description: parentDetail.vid
+        category_description: parentDetail.category || '-',
+        group_description: parentDetail.group || '-',
+        vid_description: parentDetail.vid || '-',
       };
     }
   };
@@ -87,7 +91,11 @@ const MarketProductDetail = () => {
         const productData = response.data;
         // Если у товара есть parent_detail, дополним его описаниями
         if (productData.parent_detail) {
-          const descriptions = await fetchParentDescriptions(productData.parent_detail);
+          const descriptions = await fetchParentDescriptions({
+            category: productData.parent_detail.category || '',
+            group: productData.parent_detail.group || '',
+            vid: productData.parent_detail.vid || '',
+          });
           productData.parent_detail = { ...productData.parent_detail, ...descriptions };
         }
         setMarketProduct(productData);
@@ -113,12 +121,8 @@ const MarketProductDetail = () => {
     navigate(`/products?${queryString}`, { replace: true });
   };
 
-  // Кнопка "Редактировать" (например, ведёт на EditMarketProduct)
+  // Кнопка "Редактировать"
   const handleEditClick = () => {
-    // Можно передать тот же контекст через state, 
-    // но раз уж MPR detail делает navigate(`/products?...`), 
-    // мы можем просто без queryString, 
-    // ИЛИ добавим queryString для единообразия:
     navigate(`/market-product/edit/${id}`, { state: { filters }, replace: true });
   };
 
@@ -137,7 +141,7 @@ const MarketProductDetail = () => {
 
         <div className="unified-fields-grid">
           <p className="field">
-            <strong>Дата создания:</strong> {formatDate(marketProduct.date_create)}
+            <strong>Дата создания:</strong> {marketProduct.date_create}
           </p>
           <p className="field">
             <strong>Срок доставки на склад:</strong> {marketProduct.delivery_time}

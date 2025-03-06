@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
           // 1) Сбрасываем user
           setUser(null);
           // 2) Переходим на /login
-          navigate('/login');
+          navigate('/login/');
         }
         return Promise.reject(error);
       }
