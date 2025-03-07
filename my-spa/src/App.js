@@ -13,6 +13,9 @@ import { FilterProvider } from './context/FilterContext';
 import { AuthProvider } from './context/AuthContext';
 import AdminUserList from './components/AdminUserList';
 import AdminUserEdit from './components/AdminUserEdit';
+import NewPage from './components/NewPage';
+import ProductRequestForm from './components/ProductRequestForm';
+
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
               <Route path="market-product/create/:parent_encode" element={<MarketProductForm />} />
               <Route path="market-product/:id" element={<MarketProductDetail />} />
               <Route path="market-product/edit/:id" element={<EditMarketProduct />} />
+              <Route path="/new-page" element={<NewPage />} />
+              <Route path="/requests/new" element={<ProductRequestForm />} />
               {/* Добавляем маршруты для управления пользователями */}
               <Route path="admin/users" element={<AdminUserList />} />
               <Route path="admin/users/create" element={<AdminUserEdit />} />

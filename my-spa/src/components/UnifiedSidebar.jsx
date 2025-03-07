@@ -305,6 +305,12 @@ const UnifiedSidebar = ({
               <button className="catalog-home-button" onClick={handleHomeClick}>
                 Главная
               </button>
+              <button
+                className="catalog-button new-page-button"
+                onClick={() => { navigate('/new-page'); onClose(); }}
+              >
+                Перейти на новую страницу
+              </button>
             </div>
           </div>
         </div>

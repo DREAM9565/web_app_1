@@ -343,6 +343,26 @@
     position: relative;
     left: -269px;
   }
+
+  .catalog-button.new-page-button {
+    background: #4CAF50;
+    color: #fff;
+    border: 1px solid #388E3C;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background 0.2sease;
+    position: relative;
+    left: -413px;
+    top: -107px;
+    width: 140px;
+  }
+  
+  .catalog-button.new-page-button:hover {
+    background: #45A049; /* Темнее при наведении */
+  }
 }
 
 /* Портретная ориентация (новый медиа-запрос) */
@@ -483,6 +503,22 @@
   margin-top: 11px;
   z-index: 1000;
   position: relative;
+}
+
+.catalog-button.new-page-button {
+  background: #4CAF50; /* Зеленый фон */
+  color: #fff;
+  border: 1px solid #388E3C;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.catalog-button.new-page-button:hover {
+  background: #45A049; /* Темнее при наведении */
 }
 
 }

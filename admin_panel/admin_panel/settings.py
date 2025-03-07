@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Наши приложения
     'products',
     'accounts',
+    'product_requests.apps.ProductRequestsConfig',
 ]
 
 MIDDLEWARE = [
