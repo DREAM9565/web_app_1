@@ -1,0 +1,58 @@
+.requests-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.add-request-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.add-request-btn:hover {
+  background-color: #45a049;
+}
+
+.request-form-container {
+  margin-bottom: 30px;
+}
+
+.requests-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.request-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+.request-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.request-details {
+  margin: 10px 0;
+  color: #666;
+}
+
+.request-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.request-images img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 5px;
+} 
