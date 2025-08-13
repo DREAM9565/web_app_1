@@ -276,3 +276,46 @@
     font-size: 0.9rem;
   }
 }
+
+.role-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  background-color: white;
+  cursor: pointer;
+}
+
+.role-select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  flex: 1;
+  padding-right: 40px; /* Оставляем место для кнопки */
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  padding: 5px;
+}
+
+.toggle-password-btn:hover {
+  text-decoration: underline;
+}

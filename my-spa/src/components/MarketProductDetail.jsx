@@ -11,21 +11,36 @@ const formatDate = (dateString) => {
   if (!dateString) {
     return ''; // Возвращаем пустую строку или значение по умолчанию
   }
-  
-  const date = new Date(dateString);
-  
+
+  let date;
+
+  // Проверяем, является ли дата в формате YYYY-MM-DD
+  if (dateString.includes('-')) {
+    const parts = dateString.split('-');
+    if (parts.length === 3) {
+      date = new Date(`${parts[0]}-${parts[1]}-${parts[2]}`); // YYYY-MM-DD
+    }
+  } 
+  // Если дата в формате DD.MM.YYYY
+  else if (dateString.includes('.')) {
+    const parts = dateString.split('.');
+    if (parts.length === 3) {
+      date = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`); // YYYY-MM-DD
+    }
+  }
+
   // Проверяем, является ли дата валидной
-  if (isNaN(date.getTime())) {
+  if (!date || isNaN(date.getTime())) {
     console.error("Invalid date:", dateString); // Логируем ошибку для отладки
     return ''; // Возвращаем пустую строку или значение по умолчанию
   }
-  
+
   const formatter = new Intl.DateTimeFormat('ru-RU', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   });
-  
+
   return formatter.format(date);
 };
 
@@ -141,7 +156,7 @@ const MarketProductDetail = () => {
 
         <div className="unified-fields-grid">
           <p className="field">
-            <strong>Дата создания:</strong> {marketProduct.date_create}
+            <strong>Дата создания:</strong> {formatDate(marketProduct.date_create)}
           </p>
           <p className="field">
             <strong>Срок доставки на склад:</strong> {marketProduct.delivery_time}

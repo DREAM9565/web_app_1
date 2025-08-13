@@ -15,8 +15,18 @@ const AdminUserEdit = () => {
   const [isStaff, setIsStaff] = useState(false);
   const [isSuperuser, setIsSuperuser] = useState(false);
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('user'); // Добавляем состояние для роли
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false); // Добавляем состояние для отображения пароля
+
+  // Определяем доступные роли
+  const roles = [
+    { value: 'admin', label: 'Администратор' },
+    { value: 'km', label: 'Категорийный менеджер' },
+    { value: 'buyer', label: 'Байер' },
+    { value: 'user', label: 'Пользователь' }
+  ];
 
   useEffect(() => {
     console.log('ID из useParams:', id);
@@ -33,6 +43,10 @@ const AdminUserEdit = () => {
           setLastName(data.last_name || '');   // Загружаем last_name
           setIsStaff(data.is_staff);
           setIsSuperuser(data.is_superuser);
+          // Устанавливаем роль из профиля пользователя
+          if (data.profile && data.profile.role) {
+            setRole(data.profile.role);
+          }
         } catch (err) {
           console.error('Ошибка при загрузке пользователя:', err.response?.data || err.message);
           setError('Не удалось загрузить пользователя');
@@ -51,10 +65,14 @@ const AdminUserEdit = () => {
       const obj = {
         username,
         email,
-        first_name: firstName, // Добавляем first_name
-        last_name: lastName,   // Добавляем last_name
+        first_name: firstName,
+        last_name: lastName,
         is_staff: isStaff,
         is_superuser: isSuperuser,
+        profile: {
+          role: role
+        },
+        create_profile: true // Добавляем флаг для создания профиля
       };
       if (password.trim()) {
         obj.password = password.trim();
@@ -133,12 +151,36 @@ const AdminUserEdit = () => {
 
       <div className="admin-user-form-group">
         <label>Пароль:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder={isCreate ? 'Введите пароль' : '(необязательно)'}
-        />
+        <div className="password-input-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={isCreate ? 'Введите пароль' : '(необязательно)'}
+          />
+          <button
+            type="button"
+            className="toggle-password-btn"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "Скрыть" : "Показать"}
+          </button>
+        </div>
+      </div>
+
+      <div className="admin-user-form-group">
+        <label>Роль пользователя:</label>
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="role-select"
+        >
+          {roles.map(role => (
+            <option key={role.value} value={role.value}>
+              {role.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="admin-user-form-group">

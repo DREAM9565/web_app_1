@@ -211,7 +211,6 @@ const MarketProductForm = () => {
                 value={formData.country}
                 onChange={handleChange}
               >
-                <option value="">Выберите страну</option>
                 <option value="Россия">Россия</option>
                 <option value="Китай">Китай</option>
               </select>

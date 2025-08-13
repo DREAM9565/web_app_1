@@ -137,7 +137,7 @@ const MPRProductDetail = () => {
       return (
         <div className="related-product-details">
           <p><strong>Наименование:</strong> {product.description}</p>
-          <p><strong>Дата создания:</strong> {product.date_create}</p>
+          <p><strong>Дата создания:</strong> {formatDate(product.date_create)}</p>
           <p className="price-highlight"><strong>Цена:</strong> <strong>{product.cz}</strong></p>
           <p><strong>Поставщик:</strong> {product.provider}</p>
           <p><strong>Количество в упаковке:</strong> {product.qty_per_package}</p>

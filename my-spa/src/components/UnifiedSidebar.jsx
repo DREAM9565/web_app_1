@@ -307,7 +307,7 @@ const UnifiedSidebar = ({
               </button>
               <button
                 className="catalog-button new-page-button"
-                onClick={() => { navigate('/new-page'); onClose(); }}
+                onClick={() => { navigate('/requests'); onClose(); }}
               >
                 Перейти на новую страницу
               </button>

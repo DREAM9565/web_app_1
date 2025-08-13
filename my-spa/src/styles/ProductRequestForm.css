@@ -1,0 +1,75 @@
+.product-request-form {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.error-message {
+  grid-column: 1 / -1;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+/* Поля, которые должны занимать всю ширину */
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-button {
+  grid-column: 1 / -1;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+  justify-self: start;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
+/* Стили для обязательных полей */
+label[htmlFor="name"]::after,
+label[htmlFor="description"]::after {
+  content: " *";
+  color: #dc3545;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .product-request-form {
+    margin: 10px;
+    padding: 15px;
+  }
+} 
